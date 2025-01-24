@@ -1,4 +1,4 @@
-import Header from "../../components/atoms/Header/Header";
+import Header from "../../components/atoms/Header/Header.jsx";
 import "./home.css";
 
 const Home = () => {
