@@ -1,14 +1,14 @@
-
-// REACT-ROUTER-DOM Components
 import { createBrowserRouter } from "react-router-dom";
-
-// Pages
+import Admin from "../pages/Admin/Admin.jsx";
 import Home from "../pages/Home/Home.jsx";
 
-/* ROUTER */
 export const router = createBrowserRouter([
     {
         path: "/",
         element: <Home />
+    },
+    {
+        path: "/",
+        element: <Admin />
     }
 ])
