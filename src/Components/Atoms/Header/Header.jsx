@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import "./header.css";
 
 const Header = () => {
+  return (
   <header>
     <Link to="/">
       <div>HOME</div>
@@ -10,6 +11,7 @@ const Header = () => {
       <div>ADMIN</div>
     </Link>
   </header>
+  )
 }
 
 export default Header
