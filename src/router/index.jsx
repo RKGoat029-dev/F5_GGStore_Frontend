@@ -1,6 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
-import Admin from "../pages/Admin/Admin.jsx";
 import Home from "../pages/Home/Home.jsx";
+import Admin from "../pages/Admin/Admin.jsx";
 
 export const router = createBrowserRouter([
     {
