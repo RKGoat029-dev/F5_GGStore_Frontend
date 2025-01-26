@@ -1,4 +1,6 @@
 @import url("/src/assets/fonts/Quantico/quantico-font.css");
+@import "tailwindcss";
+
 
 * {
     margin: 0;
