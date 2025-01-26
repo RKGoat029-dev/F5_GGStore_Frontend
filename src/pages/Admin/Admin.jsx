@@ -1,11 +1,11 @@
+import AdminHeader from "../../components/molecules/AdminHeader/AdminHeader.jsx";
 import Footer from "../../components/molecules/Footer/Footer.jsx";
-import Header from "../../components/molecules/Header/Header.jsx";
 import "./admin.css";
 
 const Admin = () => {
   return (
     <>
-        <Header />
+        <AdminHeader />
         <p>ADMIN PAGE</p>
         <Footer />
     </>
