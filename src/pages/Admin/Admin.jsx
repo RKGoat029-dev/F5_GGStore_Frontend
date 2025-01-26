@@ -1,4 +1,5 @@
-import Header from "../../components/atoms/Header/Header.jsx";
+import Footer from "../../components/molecules/Footer/Footer.jsx";
+import Header from "../../components/molecules/Header/Header.jsx";
 import "./admin.css";
 
 const Admin = () => {
@@ -6,6 +7,7 @@ const Admin = () => {
     <>
         <Header />
         <p>ADMIN PAGE</p>
+        <Footer />
     </>
   )
 }
