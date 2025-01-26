@@ -1,4 +1,4 @@
-import Header from "../../omponents/molecules/Header/Header.jsx";
+import Header from "../../components/molecules/Header/Header.jsx";
 import ProfileCard from "../../components/organisms/cards/ProfileCard.jsx";
 import Footer from "../../components/molecules/Footer/Footer.jsx";
 import "./home.css";
