@@ -1,5 +1,5 @@
 import { useState } from "react";
-
+import "./ProductGrid.css"
 const ProductGrid = () => {
     const [selectedCategories, setSelectedCategories] = useState([]);
     const [sortBy, setSortBy] = useState('Popular');
@@ -12,7 +12,7 @@ const ProductGrid = () => {
     ];
   
     const products = [
-      { id: 1, name: 'Natural Honey Bottle', price: 99, image: '/path-to-honey-image.jpg' },
+      { id: 1, name: 'Natural Honey Bottle', price: 99, image: '/gg.png' },
       { id: 2, name: 'Itar', price: 99, image: '/path-to-itar-image.jpg' },
       { id: 3, name: 'White Cap', price: 99, image: '/path-to-cap-image.jpg' },
       { id: 4, name: 'Jae Namaz', price: 99, image: '/path-to-namaz-image.jpg' },
@@ -70,11 +70,11 @@ const ProductGrid = () => {
                     id={category.id}
                     checked={selectedCategories.includes(category.id)}
                     onChange={() => handleCategoryChange(category.id)}
-                    className="w-4 h-4 text-yellow-500 border-gray-300 rounded focus:ring-yellow-500"
+                    className="w-4 h-4 text-black-500 border-gray-300 rounded focus:ring-black-500"
                   />
                   <label
                     htmlFor={category.id}
-                    className="ml-2 text-white cursor-pointer"
+                    className="ml-2 text-black cursor-pointer"
                   >
                     {category.label}
                   </label>
@@ -87,7 +87,7 @@ const ProductGrid = () => {
           <div className="col-span-10">
             <div className="grid grid-cols-3 gap-6">
               {products.map((product) => (
-                <div key={product.id} className="bg-gray-900 rounded-lg overflow-hidden">
+                <div key={product.id} className="bg-gray-700 rounded-lg overflow-hidden">
                   <div className="aspect-w-1 aspect-h-1">
                     <img
                       src={product.image}
