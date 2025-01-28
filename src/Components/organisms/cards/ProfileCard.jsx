@@ -20,7 +20,7 @@ const ProfileCard = () => {
                         </section>
                     </CardBody>
                     <CardFooter className="pt-5 card-footer ">
-                    <Link to="/product-detail"> <Button>Read More</Button>
+                    <Link to="/product-grid"> <Button>Read More</Button>
                     </Link>
                     </CardFooter>
                 </Card>

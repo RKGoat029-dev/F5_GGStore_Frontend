@@ -3,6 +3,7 @@ import Home from "../pages/Home/Home.jsx";
 import Admin from "../pages/Admin/Admin.jsx";
 import AboutUs from "../pages/AboutUs/AboutUs.jsx";
 import ProductDetails from "../Components/organisms/product-details/ProductDetails.jsx";
+import ProductGrid from "../components/organisms/product-grid/ProductGrid.jsx"
 
 export const router = createBrowserRouter([
     {
@@ -18,7 +19,11 @@ export const router = createBrowserRouter([
         element: <AboutUs />
     },
     {
-        path: "product-detail",
+        path: "/product-detail",
         element: <ProductDetails/>
+    },
+    {
+        path: "/product-grid",
+        element: <ProductGrid/>
     }
 ])

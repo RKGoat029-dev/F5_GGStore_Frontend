@@ -1,3 +1,4 @@
+import { useState } from "react";
 
 const ProductGrid = () => {
     const [selectedCategories, setSelectedCategories] = useState([]);
