@@ -12,19 +12,21 @@ const ProductGrid = () => {
   const [sortBy, setSortBy] = useState('Popular');
 
   const categories = [
-    { id: 'itar', label: 'Itar' },
-    { id: 'kafan', label: 'Kafan' },
-    { id: 'caps', label: 'Caps' },
-    { id: 'food', label: 'Food' },
+    { id: 'Beyond', label: 'Beyond' },
+    { id: 'Gear of war', label: 'Gear of war' },
+    { id: 'Forza', label: 'Forza' },
+    { id: 'Halo', label: 'Halo' },
+    { id: 'dragon ball', label: 'Dragon ball' },
+    { id: 'need for speed', label: 'Need for speed' }
   ];
 
   const products = [
-    { id: 1, name: 'beyond', price: 99, image: Beyond },
-    { id: 2, name: 'gear of war', price: 99, image: GearsOfWar },
+    { id: 1, name: 'beyond', price: 50, image: Beyond },
+    { id: 2, name: 'gear of war', price: 70, image: GearsOfWar },
     { id: 3, name: 'forza', price: 99, image: Forza },
-    { id: 4, name: 'halo', price: 99, image: Halo },
-    { id: 5, name: 'dragon ball', price: 99, image: Dragon},
-    { id: 6, name: 'need for speed', price: 99, image: Need },
+    { id: 4, name: 'halo', price: 45, image: Halo },
+    { id: 5, name: 'dragon ball', price: 60, image: Dragon},
+    { id: 6, name: 'need for speed', price: 75, image: Need },
   ];
 
   const handleCategoryChange = (categoryId) => {
