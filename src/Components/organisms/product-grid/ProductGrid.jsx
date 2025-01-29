@@ -26,7 +26,7 @@ const ProductGrid = () => {
     { id: 3, name: 'forza', price: 99, image: Forza },
     { id: 4, name: 'halo', price: 45, image: Halo },
     { id: 5, name: 'dragon ball', price: 60, image: Dragon},
-    { id: 6, name: 'need for speed', price: 75, image: Need },
+    { id: 6, name: 'need for speed', price: 75, image: Need }
   ];
 
   const handleCategoryChange = (categoryId) => {

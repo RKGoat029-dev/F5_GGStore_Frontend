@@ -1,6 +1,7 @@
 import { Card, CardHeader, CardBody, CardFooter, Button } from "@material-tailwind/react";
 import "./profile-card.css";
 import { Link } from "react-router-dom";
+import Dragon from "../../../assets/images/Dragon-Ball-Xenoverse.jpg"
 
 const ProfileCard = () => {
     return (
@@ -8,7 +9,7 @@ const ProfileCard = () => {
             <div className="card-content flex justify-center items-center">
                 <Card className=" w-96 card flex justify-center items-center">
                     <CardHeader color="blue-gray" className=" h-56">
-                        <img src="https://picsum.photos/390/300" alt="" />
+                        <img src={Dragon} alt="" />
                     </CardHeader>
                     <CardBody>
                         <div className="title">
