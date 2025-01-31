@@ -1,4 +1,4 @@
-import AdminHeader from "../../components/molecules/AdminHeader/AdminHeader.jsx";
+import Header from "../../components/molecules/Header/Header.jsx";
 import Footer from "../../components/molecules/Footer/Footer.jsx";
 import AdminProductManagement from "../../components/organisms/AdminProductManagement/AdminProductManagement.JSX";
 import "./admin.css";
@@ -6,7 +6,7 @@ import "./admin.css";
 const Admin = () => {
   return (
     <>
-        <AdminHeader />
+        <Header />
         <AdminProductManagement />
         <Footer />
     </>

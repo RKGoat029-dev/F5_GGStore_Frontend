@@ -5,7 +5,6 @@ import {Card,  CardHeader,  Button, CardBody,  IconButton,  Input,  Select,
 import {  PencilIcon,  TrashIcon,  PlusIcon,  MagnifyingGlassIcon,
 
 } from "@heroicons/react/24/solid";
-import Header from "../../molecules/Header/Header";
 
 
 const AdminProductManagement = () => {
@@ -35,7 +34,6 @@ const AdminProductManagement = () => {
 
   return (
     <>
-    <Header/>
     <div className="min-h-screen bg-gray-50 p-8">
       <Card className="h-full w-full">
         <CardHeader floated={false} shadow={false} className="rounded-none">
