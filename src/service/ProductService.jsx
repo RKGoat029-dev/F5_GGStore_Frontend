@@ -1,7 +1,7 @@
 import axios from "axios";
 import REACT_APP_DB_API_PRODUCT from "../../.env";
 
-const productDB = REACT_APP_DB_API_PRODUCT;
+const productDB = "http://localhost:8080/apiproducts";
 
 const createProduct = async (newProduct) => {
     const response = await axios.post(productDB, newProduct);
