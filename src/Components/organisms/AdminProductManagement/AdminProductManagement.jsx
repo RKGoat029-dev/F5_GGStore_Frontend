@@ -5,36 +5,23 @@ import {Card,  CardHeader,  Button, CardBody,  IconButton,  Input,  Select,
 import {  PencilIcon,  TrashIcon,  PlusIcon,  MagnifyingGlassIcon,
 
 } from "@heroicons/react/24/solid";
+import { readProductDB } from "../../../service/ProductService";
+import { useState, useEffect } from "react";
 
 
 const AdminProductManagement = () => {
-  const products = [
-    {
-      id: '2133',
-      image: '/api/placeholder/100/100',
-      name: 'Double Bed & Dressing',
-      status: 'No disponible',
-      price: 168.20
-    },
-    {
-      id: '2133',
-      image: '/api/placeholder/100/100',
-      name: 'Double Bed & Dressing',
-      status: 'No disponible',
-      price: 168.20
-    },
-    {
-      id: '2133',
-      image: '/api/placeholder/100/100',
-      name: 'Double Bed & Dressing',
-      status: 'No disponible',
-      price: 168.20
-    }
-  ];
+  
+  const [products, setProducts] = useState([]);
+
+    const getAllProductsFromDB = async () => {
+        const data = await readProductDB();
+        setProducts(data);
+    };
+
+    useEffect(() => { getAllProductsFromDB(); }, []);
 
   return (
     <>
-    <div className="min-h-screen bg-gray-50 p-8">
       <Card className="h-full w-full">
         <CardHeader floated={false} shadow={false} className="rounded-none">
           <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
@@ -110,8 +97,8 @@ const AdminProductManagement = () => {
               </tr>
             </thead>
             <tbody>
-              {products.map((product, index) => (
-                <tr key={index} className="even:bg-blue-gray-50/50">
+              {products.map((product) => (
+                <tr key={product.id} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
                     <p className="text-sm text-blue-gray-900">
                       {product.id}
@@ -119,7 +106,7 @@ const AdminProductManagement = () => {
                   </td>
                   <td className="p-4">
                     <img 
-                      src={product.image} 
+                      src={product.imageURL} 
                       alt={product.name} 
                       className="h-16 w-16 rounded-lg object-cover"
                     />
@@ -132,7 +119,7 @@ const AdminProductManagement = () => {
                   <td className="p-4">
                     <div className="w-max">
                       <p className="text-sm bg-red-100 text-red-800 px-3 py-1 rounded-full">
-                        {product.status}
+                        Status
                       </p>
                     </div>
                   </td>
@@ -170,9 +157,8 @@ const AdminProductManagement = () => {
           </div>
         </div>
       </Card>
-    </div>
-    </>
-  );
-};
+  </>
+  )
+}
 
 export default AdminProductManagement;
