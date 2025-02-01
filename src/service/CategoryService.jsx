@@ -1,7 +1,6 @@
 import axios from "axios";
-import REACT_APP_DB_API_CATEGORY from "../../.env";
 
-const categoryDB = REACT_APP_DB_API_CATEGORY;
+const categoryDB = "http://localhost:8080/api/categories";
 
 const createCategory = async (newCategory) => {
     const response = await axios.post(categoryDB, newCategory);

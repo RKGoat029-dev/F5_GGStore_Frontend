@@ -1,7 +1,6 @@
 import axios from "axios";
-import REACT_APP_DB_API_USER from "../../.env";
 
-const userDB = REACT_APP_DB_API_USER;
+const userDB = "http://localhost:8080/api/users";
 
 const createUser = async (newUser) => {
     const response = await axios.post(userDB, newUser);
