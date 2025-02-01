@@ -4,6 +4,47 @@ import { Link } from "react-router-dom";
 import Dragon from "../../../assets/images/Dragon-Ball-Xenoverse.jpg"
 
 const ProfileCard = () => {
+    
+    const games = [
+        {
+          id: 1,
+          title: "GAME TITLE",
+          price: "PRICE",
+          genre: "GAME GENRE",
+          imageUrl: Dragon,
+          detailUrl: "/product-grid"
+        },
+        {
+          id: 2,
+          title: "GAME TITLE",
+          price: "PRICE",
+          genre: "GAME GENRE",
+          imageUrl: "https://picsum.photos/390/300",
+          detailUrl: "/product-detail"
+        },
+        {
+          id: 3,
+          title: "GAME TITLE",
+          price: "PRICE",
+          genre: "GAME GENRE",
+          imageUrl: "https://picsum.photos/390/300",
+          detailUrl: "/product-detail"
+        },
+        {
+          id: 4,
+          title: "GAME TITLE",
+          price: "PRICE",
+          genre: "GAME GENRE",
+          imageUrl: "https://picsum.photos/390/300",
+          detailUrl: "/product-detail"
+        }
+      ];
+    
+    
+    
+    
+    
+    
     return (
         <>
             <div className="card-content flex justify-center items-center">
