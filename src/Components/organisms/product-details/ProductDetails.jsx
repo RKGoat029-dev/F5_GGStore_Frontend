@@ -1,8 +1,6 @@
 import Header from "../../molecules/Header/Header.jsx"
-import Dragon from "../../../assets/images/Dragon-ball-Xenoverse.jpg"
 
-
-import React, { useState } from 'react';
+import { useState } from 'react';
 
 const ProductDetails = () => {
   const [quantity, setQuantity] = useState(1);
@@ -22,7 +20,7 @@ const ProductDetails = () => {
           <div className="rounded-lg p-4">
             <div className="p-4">
               <img 
-                src={Dragon}
+                src="https://picsum.photos/200/300"
                 alt="Photography Equipment Set" 
                 className="w-full"
               />
