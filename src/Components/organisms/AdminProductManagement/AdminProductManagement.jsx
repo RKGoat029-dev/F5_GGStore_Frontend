@@ -5,7 +5,7 @@ import {Card,  CardHeader,  Button, CardBody,  IconButton,  Input,  Select,
 import {  PencilIcon,  TrashIcon,  PlusIcon,  MagnifyingGlassIcon,
 
 } from "@heroicons/react/24/solid";
-import { readProductDB } from "../../../service/ProductService";
+import { readProductDB, deleteProduct } from "../../../service/ProductService";
 import { useState, useEffect } from "react";
 
 
@@ -134,7 +134,7 @@ const AdminProductManagement = () => {
                         <PencilIcon className="h-4 w-4" />
                       </IconButton>
                       <IconButton variant="text" color="red">
-                        <TrashIcon className="h-4 w-4" />
+                        <TrashIcon onClick={deleteProduct(product.id)} className="h-4 w-4" />
                       </IconButton>
                     </div>
                   </td>
