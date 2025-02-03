@@ -1,7 +1,7 @@
 import "./admin-form.css";
 
-import React, { useState } from 'react';
-import {  Card,  CardHeader,  CardBody,  Input,  Button,  Textarea,  Select,  Option
+import { useState } from 'react';
+import {  Card,  CardHeader,  CardBody,  Input,  Button
 } from "@material-tailwind/react";
 import { createProduct } from '../../../service/ProductService';
 
