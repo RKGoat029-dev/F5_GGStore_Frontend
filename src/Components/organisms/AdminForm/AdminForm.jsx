@@ -10,8 +10,8 @@ const AdminForm = () => {
     name: '',
     description: '',
     price: '',
-    category: '',
-    image: '',
+    categoryId: '',
+    imageURL: '',
     stock: ''
   });
 
@@ -47,7 +47,7 @@ const AdminForm = () => {
 
     try {
       // Validaciones básicas
-      if (!formData.name || !formData.price || !formData.category) {
+      if (!formData.name || !formData.price || !formData.categoryId) {
         throw new Error('Please fill in all required fields');
       }
 
@@ -115,9 +115,9 @@ const AdminForm = () => {
 
           <div>
             <Input
-              label="Category"
-              name="category"
-              value={formData.category}
+              label="CategoryId"
+              name="categoryId"
+              value={formData.categoryId}
               onChange={handleChange}
               required
             />
