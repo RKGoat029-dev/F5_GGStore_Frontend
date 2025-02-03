@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import {   Card,   CardHeader,   CardBody,   Button,   IconButton } from "@material-tailwind/react";
 import {   PencilIcon,   TrashIcon,   PlusIcon } from "@heroicons/react/24/solid";
 import { readProductDB, deleteProduct } from '../../../service/ProductService';
@@ -14,6 +14,14 @@ const AdminProductManagement = () => {
       console.error('Error fetching products:', error);
     }
   };
+
+
+
+
+
+
+
+
 
   const handleDeleteProduct = async (id) => {
     try {
@@ -50,7 +58,7 @@ const AdminProductManagement = () => {
         <table className="w-full min-w-max table-auto text-left">
           <thead>
             <tr>
-              {["ID", "Name", "Status", "Price", "Actions"].map((head) => (
+              {["ID", "Name", "Image", "Price", "Actions"].map((head) => (
                 <th
                   key={head}
                   className="border-y border-blue-gray-100 bg-blue-gray-50/50 p-4"
@@ -72,15 +80,7 @@ const AdminProductManagement = () => {
                   <p className="font-normal">{product.name}</p>
                 </td>
                 <td className="p-4 border-b border-blue-gray-50">
-                  <div className="w-max">
-                    <div className={`font-normal ${
-                      product.status === 'Active' 
-                        ? 'text-green-500' 
-                        : 'text-red-500'
-                    }`}>
-                      {product.status}
-                    </div>
-                  </div>
+                  <img className="w-25 h-25" src={product.imageURL} alt={product.name} />
                 </td>
                 <td className="p-4 border-b border-blue-gray-50">
                   <p className="font-normal">${product.price}</p>
