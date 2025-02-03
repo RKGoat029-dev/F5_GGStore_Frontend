@@ -13,10 +13,10 @@ import { updateProduct } from '../../../service/ProductService';
 const UpdateProductForm = ({ productId }) => {
   const [product, setProduct] = useState({
     name: '',
-    description: '',
+   
     price: '',
     category: '',
-    image: null
+    
   });
 
   const [imagePreview, setImagePreview] = useState(null);
@@ -114,39 +114,9 @@ const UpdateProductForm = ({ productId }) => {
                 required
               />
             </div>
+              
 
-            <div className="mb-4">
-              <Select 
-                name="category"
-                label="Category"
-                value={product.category}
-                onChange={(value) => setProduct(prev => ({...prev, category: value}))}
-              >
-                <Option value="electronics">Electronics</Option>
-                <Option value="clothing">Clothing</Option>
-                <Option value="books">Books</Option>
-                <Option value="other">Other</Option>
-              </Select>
-            </div>
-
-            
-
-            <div className="mb-4">
-              <Input 
-                type="file" 
-                name="image"
-                label="Product Image"
-                onChange={handleImageChange}
-              />
-              {imagePreview && (
-                <img 
-                  src={imagePreview} 
-                  alt="Product Preview" 
-                  className="mt-2 h-40 w-full object-cover rounded"
-                />
-              )}
-            </div>
-
+         
             <Button type="submit" color="blue" fullWidth>
               Update Product
             </Button>
