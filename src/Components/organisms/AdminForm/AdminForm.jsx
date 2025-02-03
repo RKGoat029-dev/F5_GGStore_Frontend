@@ -24,20 +24,6 @@ const AdminForm = () => {
     }));
   };
 
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setFormData(prevState => ({
-          ...prevState,
-          image: reader.result
-        }));
-      };
-      reader.readAsDataURL(file);
-    }
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -124,9 +110,9 @@ const AdminForm = () => {
           <div>
             <Input
               label="ImageURL"
-              name="image"
-              onChange={handleImageChange}
-              accept="image/*"
+              name="imageURL"
+              value={formData.imageURL}
+              onChange={handleChange}
             />
           </div>
 
