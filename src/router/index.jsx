@@ -3,7 +3,7 @@ import Home from "../pages/Home/Home.jsx";
 import Admin from "../pages/Admin/Admin.jsx";
 import AboutUs from "../pages/AboutUs/AboutUs.jsx";
 import ProductDetails from "../Components/organisms/product-details/ProductDetails.jsx";
-import ProductGrid from "../components/organisms/product-grid/ProductGrid.jsx"
+import ProductGrid from "../Components/organisms/product-grid/ProductGrid.jsx"
 import AdminForm from "../Components/organisms/AdminForm/AdminForm.jsx";
 
 export const router = createBrowserRouter([
