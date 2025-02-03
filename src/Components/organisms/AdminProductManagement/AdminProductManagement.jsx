@@ -1,62 +1,21 @@
-import { Card, CardHeader, Button, CardBody, IconButton, Input, Select, Option, Dialog, DialogHeader, DialogBody, DialogFooter } from "@material-tailwind/react";
-import { PencilIcon, TrashIcon, PlusIcon, MagnifyingGlassIcon } from "@heroicons/react/24/solid";
-import { readProductDB, deleteProduct, createProduct, updateProduct } from "../../../service/ProductService";
+import { Card, CardHeader, Button, CardBody, IconButton } from "@material-tailwind/react";
+import { PencilIcon, TrashIcon, PlusIcon } from "@heroicons/react/24/solid";
+import { readProductDB, deleteProduct } from "../../../service/ProductService";
 import { useState, useEffect } from "react";
 
 const AdminProductManagement = () => {
   const [products, setProducts] = useState([]);
-  const [openDialog, setOpenDialog] = useState(false);
-  const [editProduct, setEditProduct] = useState(null);
-  const [formData, setFormData] = useState({
-    name: '',
-    price: '',
-    imageURL: '',
-    status: 'Available'
-  });
-
+  
   const getAllProductsFromDB = async () => {
     const data = await readProductDB();
     setProducts(data);
   };
 
+  const deleteProductById = async (id) => {  
+    deleteProduct(id);
+  }
+  
   useEffect(() => { getAllProductsFromDB(); }, []);
-
-  const handleDelete = async (id) => {
-    try {
-      await deleteProduct(id);
-      getAllProductsFromDB();
-    } catch (error) {
-      console.error("Error deleting product:", error);
-    }
-  };
-
-  const handleEdit = (product) => {
-    setEditProduct(product);
-    setFormData({
-      name: product.name,
-      price: product.price,
-      imageURL: product.imageURL,
-      status: product.status
-    });
-    setOpenDialog(true);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (editProduct) {
-        await updateProduct(editProduct.id, formData);
-      } else {
-        await createProduct(formData);
-      }
-      setOpenDialog(false);
-      setEditProduct(null);
-      setFormData({ name: '', price: '', imageURL: '', status: 'Available' });
-      getAllProductsFromDB();
-    } catch (error) {
-      console.error("Error saving product:", error);
-    }
-  };
 
   return (
     <>
@@ -75,11 +34,6 @@ const AdminProductManagement = () => {
               <Button
                 className="flex items-center gap-3"
                 color="blue"
-                onClick={() => {
-                  setEditProduct(null);
-                  setFormData({ name: '', price: '', imageURL: '', status: 'Available' });
-                  setOpenDialog(true);
-                }}
               >
                 <PlusIcon strokeWidth={2} className="h-4 w-4" />
                 Add Product
@@ -95,20 +49,41 @@ const AdminProductManagement = () => {
               {products.map((product) => (
                 <tr key={product.id} className="even:bg-blue-gray-50/50">
                   <td className="p-4">
+                    <p className="text-sm text-blue-gray-900">
+                      {product.id}
+                    </p>
+                  </td>
+                  <td className="p-4">
+                    <img 
+                      src={product.imageURL} 
+                      alt={product.name} 
+                      className="h-16 w-16 rounded-lg object-cover"
+                    />
+                  </td>
+                  <td className="p-4">
+                    <p className="text-sm text-blue-gray-900">
+                      {product.name}
+                    </p>
+                  </td>
+                  <td className="p-4">
+                    <div className="w-max">
+                      <p className="text-sm bg-red-100 text-red-800 px-3 py-1 rounded-full">
+                        Status
+                      </p>
+                    </div>
+                  </td>
+                  <td className="p-4">
+                    <p className="text-sm text-blue-gray-900">
+                      ${product.price}
+                    </p>
+                  </td>
+                  <td className="p-4">
                     <div className="flex gap-2">
-                      <IconButton
-                        variant="text"
-                        color="blue"
-                        onClick={() => handleEdit(product)}
-                      >
+                      <IconButton variant="text" color="blue">
                         <PencilIcon className="h-4 w-4" />
                       </IconButton>
-                      <IconButton
-                        variant="text"
-                        color="red"
-                        onClick={() => handleDelete(product.id)}
-                      >
-                        <TrashIcon className="h-4 w-4" />
+                      <IconButton variant="text" color="red">
+                        <TrashIcon onClick={deleteProductById(product.id)} className="h-4 w-4" />
                       </IconButton>
                     </div>
                   </td>
@@ -118,53 +93,6 @@ const AdminProductManagement = () => {
           </table>
         </CardBody>
       </Card>
-
-      <Dialog open={openDialog} handler={() => setOpenDialog(false)}>
-        <form onSubmit={handleSubmit}>
-          <DialogHeader>
-            {editProduct ? 'Edit Product' : 'Add New Product'}
-          </DialogHeader>
-          <DialogBody>
-            <div className="flex flex-col gap-4">
-              <Input
-                label="Name"
-                value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                required
-              />
-              <Input
-                label="Price"
-                type="number"
-                value={formData.price}
-                onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                required
-              />
-              <Input
-                label="Image URL"
-                value={formData.imageURL}
-                onChange={(e) => setFormData({ ...formData, imageURL: e.target.value })}
-                required
-              />
-              <Select
-                label="Status"
-                value={formData.status}
-                onChange={(value) => setFormData({ ...formData, status: value })}
-              >
-                <Option value="Available">Available</Option>
-                <Option value="No disponible">No disponible</Option>
-              </Select>
-            </div>
-          </DialogBody>
-          <DialogFooter>
-            <Button color="red" onClick={() => setOpenDialog(false)}>
-              Cancel
-            </Button>
-            <Button color="green" type="submit">
-              {editProduct ? 'Save Changes' : 'Add Product'}
-            </Button>
-          </DialogFooter>
-        </form>
-      </Dialog>
     </>
   );
 };
