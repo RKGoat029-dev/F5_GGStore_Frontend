@@ -4,7 +4,7 @@ import "./footer.css";
 const Footer = () => {
   return (
     <>
-        <p>FOOTER</p>
+        <p>© 2025 GG Store. All Rights Reserved.</p>
         <Link to="/about-us">
             <p>About Us</p>
         </Link>
