@@ -6,7 +6,7 @@ import {  Card,  CardHeader,  CardBody,  Input,  Button
 import { createProduct } from '../../../service/ProductService';
 
 const AdminForm = () => {
-  const [productData, setProducData] = useState({
+  const [formData, setFormData] = useState({
     name: '',
     price: '',
     categoryId: '',
@@ -18,7 +18,7 @@ const AdminForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setProducData(prevState => ({
+    setFormData(prevState => ({
       ...prevState,
       [name]: value
     }));
@@ -29,7 +29,7 @@ const AdminForm = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setProducData(prevState => ({
+        setFormData(prevState => ({
           ...prevState,
           image: reader.result
         }));
@@ -45,19 +45,19 @@ const AdminForm = () => {
 
     try {
       // Validaciones básicas
-      if (!productData.name || !productData.price || !productData.categoryId) {
+      if (!formData.name || !formData.price || !formData.categoryId) {
         throw new Error('Please fill in all required fields');
       }
 
-      if (isNaN(productData.price) || productData.price <= 0) {
+      if (isNaN(formData.price) || formData.price <= 0) {
         throw new Error('Please enter a valid price');
       }
 
     
       const productData = {
-        ...productData,
-        price: parseFloat(productData.price),
-        stock: parseInt(productData.stock, 10)
+        ...formData,
+        price: parseFloat(formData.price),
+        stock: parseInt(formData.stock, 10)
       };
 
       await createProduct(productData);
@@ -91,7 +91,7 @@ const AdminForm = () => {
             <Input
               label="Product Name"
               name="name"
-              value={productData.name}
+              value={formData.name}
               onChange={handleChange}
               required
             />
@@ -105,7 +105,7 @@ const AdminForm = () => {
               name="price"
               type="number"
               step="0.01"
-              value={productData.price}
+              value={formData.price}
               onChange={handleChange}
               required
             />
@@ -115,7 +115,7 @@ const AdminForm = () => {
             <Input
               label="CategoryId"
               name="categoryId"
-              value={productData.categoryId}
+              value={formData.categoryId}
               onChange={handleChange}
               required
             />
@@ -130,10 +130,10 @@ const AdminForm = () => {
             />
           </div>
 
-          {productData.image && (
+          {formData.image && (
             <div className="w-40 h-40 mx-auto">
               <img
-                src={productData.imageURL}
+                src={formData.imageURL}
                 alt="Product preview"
                 className="w-full h-full object-cover rounded-lg"
               />
