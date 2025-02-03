@@ -17,7 +17,7 @@ const UpdateProductForm = () => {
     setProduct(prevProduct => ({
       ...prevProduct,
       [name]: value
-      }));
+    }));
   };
 
   const handleImageChange = (e) => {
@@ -25,10 +25,9 @@ const UpdateProductForm = () => {
     if (file) {
       setProduct(prevProduct => ({
         ...prevProduct,
-        image: product.imageURL
+        image: file
       }));
-      
-  
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setImagePreview(reader.result);
@@ -40,14 +39,14 @@ const UpdateProductForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-     
       const formData = new FormData();
       Object.keys(product).forEach(key => {
         formData.append(key, product[key]);
       });
 
-      await updateProduct(formData);
-      
+      // Assuming updateProduct expects a product object
+      const updatedProduct = await updateProduct(product);
+
       alert('Product updated successfully!');
     } catch (error) {
       console.error('Error updating product:', error);
@@ -66,7 +65,7 @@ const UpdateProductForm = () => {
           <h3 className="text-white text-2xl font-bold">Update Product</h3>
         </CardHeader>
         <CardBody>
-          <form onSubmit={handleSubmit()} className="flex flex-col gap-4">
+          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div className="mb-4">
               <Input
                 type="text"
@@ -77,8 +76,6 @@ const UpdateProductForm = () => {
                 required
               />
             </div>
-
-            
 
             <div className="mb-4">
               <Input
@@ -91,9 +88,7 @@ const UpdateProductForm = () => {
                 required
               />
             </div>
-              
 
-         
             <Button type="submit" color="blue" fullWidth>
               Update Product
             </Button>
