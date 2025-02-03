@@ -2,11 +2,10 @@ import React from "react";
 import { Typography } from "@material-tailwind/react";
 import { Link } from "react-router-dom";
 import { FaGithub, FaLinkedin } from "react-icons/fa";
-import "./footer.css"
 
 const Footer = () => {
   return (
-    <footer className="flex w-full flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 border-t border-blue-gray-50 py-6 text-center md:justify-between">
+    <footer className="w-full flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 border-t border-blue-gray-50 py-6 text-center md:justify-between shadow-md">
       <Typography className="text-blue-gray-900 font-normal">
         © 2025 GG Store. All Rights Reserved.
       </Typography>
@@ -23,7 +22,7 @@ const Footer = () => {
           className="text-gray-800 hover:text-gray-600 transition-colors"
         >
           <FaGithub size={24} color="#24292e" />
-        </a>
+        </a><p>Antonio</p>
         
         <a 
           href="https://www.linkedin.com/in/antonio-j-cabrera/" 
@@ -41,7 +40,7 @@ const Footer = () => {
           className="text-purple-800 hover:text-purple-600 transition-colors"
         >
           <FaGithub size={24} color="#6f42c1" />
-        </a>
+        </a><p>Miller</p>
         
         <a 
           href="https://www.linkedin.com/in/miller-duwan/" 
