@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import {   Card,   CardHeader,   CardBody,   Button,   IconButton } from "@material-tailwind/react";
 import {   PencilIcon,   TrashIcon,   PlusIcon } from "@heroicons/react/24/solid";
 import { readProductDB, deleteProduct } from '../../../service/ProductService';
+import { Link } from 'react-router-dom';
 
 const AdminProductManagement = () => {
   const [products, setProducts] = useState([]);
@@ -15,18 +16,9 @@ const AdminProductManagement = () => {
     }
   };
 
-
-
-
-
-
-
-
-
   const handleDeleteProduct = async (id) => {
     try {
       await deleteProduct(id);
-      // Refresh the products list after deletion
       getAllProductsFromDB();
     } catch (error) {
       console.error('Error deleting product:', error);
@@ -48,9 +40,11 @@ const AdminProductManagement = () => {
             </p>
           </div>
           <div className="flex w-full shrink-0 gap-2 md:w-max">
-            <Button className="flex items-center gap-3" size="sm" onClick={() => window.location.href = '/add-product'}>
+            <Link to="/admin-form">
+            <Button className="flex items-center gap-3" size="sm">
               <PlusIcon strokeWidth={2} className="h-4 w-4" /> Add Product
             </Button>
+            </Link>
           </div>
         </div>
       </CardHeader>

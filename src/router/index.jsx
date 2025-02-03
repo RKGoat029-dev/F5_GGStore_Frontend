@@ -4,6 +4,7 @@ import Admin from "../pages/Admin/Admin.jsx";
 import AboutUs from "../pages/AboutUs/AboutUs.jsx";
 import ProductDetails from "../Components/organisms/product-details/ProductDetails.jsx";
 import ProductGrid from "../components/organisms/product-grid/ProductGrid.jsx"
+import AdminForm from "../Components/organisms/AdminForm/AdminForm.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -25,5 +26,9 @@ export const router = createBrowserRouter([
     {
         path: "/product-grid",
         element: <ProductGrid/>
+    },
+    {
+        path: "/admin-form",
+        element: <AdminForm />
     }
 ])
