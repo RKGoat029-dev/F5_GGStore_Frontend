@@ -5,6 +5,7 @@ import AboutUs from "../pages/AboutUs/AboutUs.jsx";
 import ProductDetails from "../Components/organisms/product-details/ProductDetails.jsx";
 import ProductGrid from "../Components/organisms/product-grid/ProductGrid.jsx"
 import AdminForm from "../Components/organisms/AdminForm/AdminForm.jsx";
+import UpdateProductForm from "../Components/organisms/UpdateProductForm/UpdateProductForm.jsx";
 
 export const router = createBrowserRouter([
     {
@@ -30,5 +31,9 @@ export const router = createBrowserRouter([
     {
         path: "/admin-form",
         element: <AdminForm />
+    },
+    {
+        path: "/edit-product/:productid",
+        element: <UpdateProductForm />
     }
 ])

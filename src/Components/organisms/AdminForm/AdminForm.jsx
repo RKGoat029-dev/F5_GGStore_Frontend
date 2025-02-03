@@ -55,7 +55,7 @@ const AdminForm = () => {
         throw new Error('Please enter a valid price');
       }
 
-      // Convertir precio a número
+    
       const productData = {
         ...formData,
         price: parseFloat(formData.price),
@@ -63,7 +63,7 @@ const AdminForm = () => {
       };
 
       await createProduct(productData);
-      // Redireccionar a la lista de productos
+      
       window.location.href = '/admin';
     } catch (err) {
       setError(err.message);
