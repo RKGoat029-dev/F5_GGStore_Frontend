@@ -13,7 +13,7 @@ const readProductDB = async () => {
 };
 
 const updateProduct = async (id, updatedProduct) => {
-    const response = await axios.put(`${productDB}/update/${id}`, updatedProduct);
+    const response = await axios.put(`${productDB}/${id}`, updatedProduct);
     return response.data;
 };
 
