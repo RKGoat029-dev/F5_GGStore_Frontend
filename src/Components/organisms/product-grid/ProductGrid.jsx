@@ -70,7 +70,7 @@ const ProductGrid = () => {
       </div>
 
       <div className="grid grid-cols-12 gap-8">
-        {/* Filters Sidebar */}
+        
         <div className="col-span-2">
           <div className="space-y-4">
             <h3 className="text-white font-medium">Categories</h3>
@@ -94,7 +94,7 @@ const ProductGrid = () => {
           </div>
         </div>
 
-        {/* Products Grid */}
+     
         <div className="col-span-10">
           <div className="grid grid-cols-3 gap-6">
             {products.map((product) => (
