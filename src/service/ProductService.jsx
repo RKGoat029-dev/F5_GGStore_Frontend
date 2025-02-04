@@ -12,6 +12,12 @@ const readProductDB = async () => {
     return response.data; 
 };
 
+const readProductDBWithId = async (id) => { 
+    const response = await axios.get(`${productDB}/${id}`); 
+    return response.data; 
+};
+
+
 const updateProduct = async (id, updatedProduct) => {
     const response = await axios.put(`${productDB}/${id}`, updatedProduct);
     return response.data;
@@ -22,4 +28,4 @@ const deleteProduct = async (id) => {
     return response.data;
 };
 
-export { productDB, createProduct, readProductDB, updateProduct, deleteProduct }
+export { productDB, createProduct, readProductDB, readProductDBWithId, updateProduct, deleteProduct }
