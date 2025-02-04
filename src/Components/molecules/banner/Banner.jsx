@@ -4,7 +4,7 @@ function Banner() {
   return (
     <div>
       <img className="banner-logo w-500 h-250 rounded-lg" src={banner} alt="" />
-      <p className="product font-bold text-3xl text-center">Nuestros Productos</p>
+      <p className="product-text font-bold text-3xl text-center mb-16">Nuestros Productos</p>
     </div>
     
   )
