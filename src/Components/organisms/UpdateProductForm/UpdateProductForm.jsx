@@ -1,57 +1,32 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardBody, Button, Input } from "@material-tailwind/react";
 import { updateProduct } from '../../../service/ProductService';
+import axios from 'axios';
+import { useNavigate, useParams } from 'react-router-dom';
 
 const UpdateProductForm = () => {
+  
+  const { id } = useParams();
   const [product, setProduct] = useState({
-    name: '',
+    id: id,
+    name: "",
     price: "",
     categoryId: "",
-    image: ""
+    imageURL: ""
   });
+  
+  const navigate = useNavigate();
 
-  const [imagePreview, setImagePreview] = useState(null);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct(prevProduct => ({
-      ...prevProduct,
-      [name]: value
-    }));
-  };
-
-  const handleImageChange = (e) => {
-    const file = e.target.files[0];
-    if (file) {
-      setProduct(prevProduct => ({
-        ...prevProduct,
-        image: file
-      }));
-
-      const reader = new FileReader();
-      reader.onloadend = () => {
-        setImagePreview(reader.result);
-      };
-      reader.readAsDataURL(file);
-    }
-  };
+  useEffect(() => {
+    axios.get("http://localhost:8080/api/products/" + id)
+    .then(res => setProduct(res.data))
+    .catch(err => console.log(err))
+  }, [id]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    try {
-      const formData = new FormData();
-      Object.keys(product).forEach(key => {
-        formData.append(key, product[key]);
-      });
-
-      // Assuming updateProduct expects a product object
-      const updatedProduct = await updateProduct(product);
-
-      alert('Product updated successfully!');
-    } catch (error) {
-      console.error('Error updating product:', error);
-      alert('Failed to update product');
-    }
+    await updateProduct(`http://localhost:8080/api/products/${id}`, product)
+    .then(navigate("/admin"));
   };
 
   return (
@@ -72,7 +47,7 @@ const UpdateProductForm = () => {
                 name="name"
                 label="Product Name"
                 value={product.name}
-                onChange={handleChange}
+                onChange={(e) => setProduct({...product, name:e.target.value})}
                 required
               />
             </div>
@@ -83,7 +58,29 @@ const UpdateProductForm = () => {
                 name="price"
                 label="Price"
                 value={product.price}
-                onChange={handleChange}
+                onChange={(e) => setProduct({...product, price:e.target.value})}
+                step="0.01"
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <Input
+                name="categoryId"
+                label="CategoryId"
+                value={product.categoryId}
+                onChange={(e) => setProduct({...product, categoryId:e.target.value})}
+                step="0.01"
+                required
+              />
+            </div>
+
+            <div className="mb-4">
+              <Input
+                name="imageURL"
+                label="ImageURL"
+                value={product.imageURL}
+                onChange={(e) => setProduct({...product, imageURL:e.target.value})}
                 step="0.01"
                 required
               />

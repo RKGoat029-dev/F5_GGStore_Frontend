@@ -84,7 +84,7 @@ const AdminProductManagement = () => {
                     <IconButton
                       variant="text"
                       color="blue"
-                      onClick={() => window.location.href = `/edit-product/${product.id}`}
+                      onClick={() => window.location.href = `/${product.id}`}
                     >
                       <PencilIcon className="h-4 w-4" />
                     </IconButton>

@@ -22,4 +22,4 @@ const deleteProduct = async (id) => {
     return response.data;
 };
 
-export { createProduct, readProductDB, updateProduct, deleteProduct }
+export { productDB, createProduct, readProductDB, updateProduct, deleteProduct }
