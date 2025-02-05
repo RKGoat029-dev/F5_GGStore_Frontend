@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Header from "../../molecules/Header/Header"
+import Header from "../../../components/molecules/Header/Header"
 import Beyond from "../../../assets/images/beyond.jpg"
 import GearsOfWar from "../../../assets/images/gear-of-war.png"
 import Forza from "../../../assets/images/Forza-horizon.webp"
