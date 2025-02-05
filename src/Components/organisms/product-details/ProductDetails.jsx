@@ -1,4 +1,4 @@
-import Header from "../../molecules/Header/Header.jsx"
+import Header from "../../../components/molecules/Header/Header"
 
 import { useState } from 'react';
 
@@ -33,7 +33,7 @@ const ProductDetails = () => {
                 className="p-2 hover:bg-gray-100 rounded-full text-black"
                 onClick={() => setIsFavorite(!isFavorite)}
               >
-                {/* Icon content here */}
+              
               </button>
             </div>
 

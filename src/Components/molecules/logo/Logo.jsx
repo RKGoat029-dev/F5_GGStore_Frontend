@@ -1,4 +1,4 @@
-import logo from "../../../assets/icon/gg.png"
+import logo from "../../../assets/icon/retro.png"
 function Logo() {
   return (
     <div>

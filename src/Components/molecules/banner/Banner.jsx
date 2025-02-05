@@ -3,11 +3,23 @@ import "./Banner.css"
 
 function Banner() {
   return (
-    <div>
-      <img className="banner-logo w-500 h-250 rounded-lg" src={banner} alt="" />
-      <p className="product-text font-bold text-3xl text-center mb-16">Nuestros Productos</p>
-    </div>
-    
+    <>
+      <div className="w-full">
+
+        <div className="relative w-full h-[700px]  rounded-md">
+          <img
+            src={banner}
+            alt="Banner"
+            className="w-full h-full object-cover mb-5"
+          />
+
+        </div>
+        <div className="text-center py-16 px-4">
+          <h2 className="product-text text-4xl font-bold ">Nuestros Productos</h2>
+          
+        </div>
+      </div>
+    </>
   )
 }
 

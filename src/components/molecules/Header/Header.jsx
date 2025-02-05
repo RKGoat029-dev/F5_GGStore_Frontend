@@ -1,13 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
+import Logo from "../../../Components/molecules/logo/Logo";
 import "./header.css";
-import Logo from "../logo/Logo";
+
 
 const Header = () => {
   return (
   <header className="logo-header">
-     
     <Link to="/">
-      <Logo />
+    <Logo/>
+    </Link>
+    
+    <Link to="/about-us">
+     <div>CONTACT US</div>
     </Link>
     <Link to="/admin">
       <div>ADMIN</div>

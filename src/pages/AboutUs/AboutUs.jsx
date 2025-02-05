@@ -8,7 +8,7 @@ const AboutUs = () => {
   return (
     <>
       <Header />
-      <div className="mx-auto px-4 py-8 text-center flex flex-col md:flex-row items-center">
+      <div className="mx-auto px-4 py-8 text-center flex flex-col md:flex-row items-center min-h-screen">
       <img src={about1} alt="Miller" className="w-1/4 md:w-1/5 h-100 object-contain aspect-auto mr-4 rounded-md" />
       <div className="flex-1">
         <h2 className="text-3xl font-bold mb-6 text-gray-800">Sobre Nuestro Proyecto</h2>

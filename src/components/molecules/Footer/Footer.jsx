@@ -5,51 +5,61 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="w-full flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 border-t border-blue-gray-50 py-6 text-center md:justify-between shadow-md">
+    <footer className="w-full sticky bottom-0 bg-white flex flex-col md:flex-row flex-wrap items-center justify-center gap-y-4 gap-x-8 border-t border-blue-gray-50 py-4 text-center md:justify-between shadow-md">
       <Typography className="text-blue-gray-900 font-normal">
         © 2025 GG Store. All Rights Reserved.
       </Typography>
       
-      <div className="flex justify-center items-center gap-4">
+      <div className="flex justify-center items-center gap-6">
         <Link to="/about-us" className="text-blue-gray-900 hover:text-blue-600 transition-colors">
           About Us
         </Link>
         
-        <a 
-          href="https://github.com/RKGoat029-dev" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="text-gray-800 hover:text-gray-600 transition-colors"
-        >
-          <FaGithub size={24} color="#24292e" />
-        </a><p>Antonio</p>
-        
-        <a 
-          href="https://www.linkedin.com/in/antonio-j-cabrera/" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="text-blue-800 hover:text-blue-600 transition-colors"
-        >
-          <FaLinkedin size={24} color="#0077B5" />
-        </a>
-        
-        <a 
-          href="https://github.com/nawud" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="text-purple-800 hover:text-purple-600 transition-colors"
-        >
-          <FaGithub size={24} color="#6f42c1" />
-        </a><p>Miller</p>
-        
-        <a 
-          href="https://www.linkedin.com/in/miller-duwan/" 
-          target="_blank" 
-          rel="noopener noreferrer" 
-          className="text-green-800 hover:text-green-600 transition-colors"
-        >
-          <FaLinkedin size={24} color="#0A66C2" />
-        </a>
+        <div className="flex items-center gap-2">
+          <a 
+            href="https://github.com/RKGoat029-dev" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-gray-800 hover:text-gray-600 transition-colors"
+          >
+            <FaGithub size={24} />
+          </a>
+          <p className="text-sm font-medium">Antonio</p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <a 
+            href="https://www.linkedin.com/in/antonio-j-cabrera/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-blue-800 hover:text-blue-600 transition-colors"
+          >
+            <FaLinkedin size={24} />
+          </a>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <a 
+            href="https://github.com/nawud" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-purple-800 hover:text-purple-600 transition-colors"
+          >
+            <FaGithub size={24} />
+          </a>
+          <p className="text-sm font-medium">Miller</p>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <a 
+            href="https://www.linkedin.com/in/miller-duwan/" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="text-green-800 hover:text-green-600 transition-colors"
+          >
+            <FaLinkedin size={24} />
+          </a>
+        </div>
       </div>
     </footer>
   );

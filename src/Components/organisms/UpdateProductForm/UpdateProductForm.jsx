@@ -1,57 +1,118 @@
 import { useState, useEffect } from 'react';
-import { Card, CardHeader, CardBody, Button, Input } from "@material-tailwind/react";
+import { 
+  Card, 
+  CardHeader, 
+  CardBody, 
+  Button, 
+  Input,
+ 
+} from "@material-tailwind/react";
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+
 const UpdateProductForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
+  
   const [product, setProduct] = useState({
     id: '',
     name: '',
-    price: 0,
-    categoryId: 0,
-    imageURL: ''
+    
+    price: '',
+    imageURL: '',
   });
+
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
   const [isSaving, setIsSaving] = useState(false);
+
   useEffect(() => {
     const getProduct = async () => {
+      if (!id) {
+        setError("No product ID provided");
+        setIsLoading(false);
+        return;
+      }
+
       setIsLoading(true);
       try {
         const res = await axios.get(`http://localhost:8080/api/products/${id}`);
-        setProduct(res.data);
+        if (!res.data) {
+          throw new Error('No data received from server');
+        }
+        
+       
+        setProduct({
+          ...res.data,          
+          price: res.data.price || 0,
+          id: res.data.id || id
+        });
         setError(null);
       } catch (error) {
-        setError("Failed to load product. Please try again.");
         console.error("Error fetching product:", error);
+        setError(error.response?.data?.message || "Failed to load product. Please try again.");
       } finally {
         setIsLoading(false);
       }
     };
-    if (id) {
-      getProduct();
-    }
+
+    getProduct();
   }, [id]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProduct(prevProduct => ({
+      ...prevProduct,
+      [name]: value
+    }));
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (!id) {
+      setError("No product ID available");
+      return;
+    }
+
     setIsSaving(true);
     setError(null);
+
+    
+    const updatedProduct = {
+      ...product,
+      price: parseFloat(product.price),
+      id: parseInt(id)
+    };
+
     try {
+      console.log('Sending update request with data:', updatedProduct);
+      
       const response = await axios.put(
         `http://localhost:8080/api/products/${id}`,
-        product
+        updatedProduct,
+        {
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
       );
-      if (response.status === 200) {
+      
+      console.log('Update response:', response);
+
+      if (response.data) {
+        alert('Product updated successfully!');
         navigate("/admin");
+      } else {
+        throw new Error('No response data received');
       }
     } catch (error) {
-      setError("Failed to update product. Please check your input and try again.");
       console.error("Error updating product:", error);
+      setError(error.response?.data?.message || "Failed to update product. Please check your input and try again.");
     } finally {
       setIsSaving(false);
     }
   };
+
   if (isLoading) {
     return (
       <div className="min-h-screen flex items-center justify-center">
@@ -59,6 +120,25 @@ const UpdateProductForm = () => {
       </div>
     );
   }
+
+  if (error) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Card className="w-96 p-6">
+          <div className="text-center">
+            <p className="text-red-500 mb-4">{error}</p>
+            <Button
+              color="blue"
+              onClick={() => navigate("/admin")}
+            >
+              Return to Admin Panel
+            </Button>
+          </div>
+        </Card>
+      </div>
+    );
+  }
+
   return (
     <div className="max-w-md mx-auto mt-10 px-4">
       <Card className="shadow-lg">
@@ -69,46 +149,45 @@ const UpdateProductForm = () => {
         >
           <h3 className="text-white text-2xl font-bold">Update Product</h3>
         </CardHeader>
-        {error && (
-          <div className="p-4 bg-red-50 border-l-4 border-red-500">
-            <p className="text-red-700">{error}</p>
-          </div>
-        )}
         <CardBody className="flex flex-col gap-6 p-6">
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <Input
               type="text"
+              name="name"
               label="Product Name"
-              value={product.name}
-              onChange={(e) => setProduct({...product, name: e.target.value})}
+              value={product.name || ''}
+              onChange={handleChange}
               required
             />
+            
+            
+
             <Input
               type="number"
+              name="price"
               label="Price"
-              value={product.price}
-              onChange={(e) => setProduct({...product, price: parseFloat(e.target.value)})}
+              value={product.price || ''}
+              onChange={handleChange}
               step="0.01"
               required
             />
-            <Input
-              type="number"
-              label="Category ID"
-              value={product.categoryId}
-              onChange={(e) => setProduct({...product, categoryId: parseInt(e.target.value)})}
-              required
-            />
+
+           
+
             <Input
               type="text"
+              name="imageURL"
               label="Image URL"
-              value={product.imageURL}
-              onChange={(e) => setProduct({...product, imageURL: e.target.value})}
+              value={product.imageURL || ''}
+              onChange={handleChange}
               required
             />
+
             <Button
               type="submit"
               disabled={isSaving}
-              className={`mt-6 py-4 text-lg font-medium transition-colors ${isSaving ? 'bg-blue-400 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-600'}`}
+              color="blue"
+              className="mt-6"
               fullWidth
             >
               {isSaving ? "Updating..." : "Update Product"}
@@ -119,4 +198,5 @@ const UpdateProductForm = () => {
     </div>
   );
 };
+
 export default UpdateProductForm;
