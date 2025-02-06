@@ -9,7 +9,6 @@ import {
 } from "@material-tailwind/react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { updateProduct } from "../../../service/ProductService.jsx";
-import { useRef } from 'react';
 
 const UpdateProductForm = () => {
   
@@ -25,8 +24,6 @@ const updateProductById = async (id, updatedProduct) => {
 const navigate = useNavigate();
 
 const { productId } = useParams();
-
-const [prevName, prevPrice, prevImageURL, prevCategoryId] = useRef("");
 
 const [name, setName] = useState("");
 const [price, setPrice] = useState("");
