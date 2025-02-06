@@ -33,7 +33,7 @@ export const router = createBrowserRouter([
         element: <AdminForm />
     },
     {
-        path: "/:productid",
+        path: "/edit/:productId",
         element: <UpdateProductForm />
     }
 ])

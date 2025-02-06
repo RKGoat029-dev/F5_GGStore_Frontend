@@ -7,137 +7,74 @@ import {
   Input,
  
 } from "@material-tailwind/react";
-import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
+import { updateProduct } from "../../../service/ProductService.jsx";
+import { useRef } from 'react';
 
 const UpdateProductForm = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
   
-  const [product, setProduct] = useState({
-    id: '',
-    name: '',
-    
-    price: '',
-    imageURL: '',
-  });
 
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
-  const [isSaving, setIsSaving] = useState(false);
+const [products, setProducts] = useState([]);
+
+const updateProductById = async (id, updatedProduct) => {
+  const updating = await updateProduct(id, updatedProduct);
+  setProducts((prevProducts) => prevProducts.map(
+    (product) => (product.id === id ? updating : product)));
+};
+
+const navigate = useNavigate();
+
+const { productId } = useParams();
+
+const [prevName, prevPrice, prevImageURL, prevCategoryId] = useRef("");
+
+const [name, setName] = useState("");
+const [price, setPrice] = useState("");
+const [imageURL, setImageURL] = useState("");
+const [categoryId, setCategoryId] = useState("");
 
   useEffect(() => {
-    const getProduct = async () => {
-      if (!id) {
-        setError("No product ID provided");
-        setIsLoading(false);
-        return;
+    if (productId) {
+      
+      const foundProduct = products.find((product) => 
+      product.id === Number(productId));
+      
+      if (foundProduct) {
+        setName(foundProduct.name);
+        setPrice(foundProduct.price);
+        setImageURL(foundProduct.imageURL);
+        setCategoryId(foundProduct.categoryId);
       }
-
-      setIsLoading(true);
-      try {
-        const res = await axios.get(`http://localhost:8080/api/products/${id}`);
-        if (!res.data) {
-          throw new Error('No data received from server');
-        }
-        
-       
-        setProduct({
-          ...res.data,          
-          price: res.data.price || 0,
-          id: res.data.id || id
-        });
-        setError(null);
-      } catch (error) {
-        console.error("Error fetching product:", error);
-        setError(error.response?.data?.message || "Failed to load product. Please try again.");
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    getProduct();
-  }, [id]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setProduct(prevProduct => ({
-      ...prevProduct,
-      [name]: value
-    }));
-  };
+    }
+  }, [productId, products]);
 
   const handleSubmit = async (e) => {
+    
     e.preventDefault();
-    if (!id) {
-      setError("No product ID available");
+    
+    if (!productId) {
+      alert("No product ID available");
       return;
     }
 
-    setIsSaving(true);
-    setError(null);
+    if (!name || !price || !imageURL || !categoryId) {
+      alert("All fields are required!");
+      return;
+    }
 
-    
     const updatedProduct = {
-      ...product,
-      price: parseFloat(product.price),
-      id: parseInt(id)
+      id: Number(productId),
+      name,
+      price,
+      imageURL,
+      categoryId
     };
 
-    try {
-      console.log('Sending update request with data:', updatedProduct);
-      
-      const response = await axios.put(
-        `http://localhost:8080/api/products/${id}`,
-        updatedProduct,
-        {
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
-      );
-      
-      console.log('Update response:', response);
+    updateProductById(updatedProduct);
+    alert("Product successfully updated!");
+    navigate("/admin");
 
-      if (response.data) {
-        alert('Product updated successfully!');
-        navigate("/admin");
-      } else {
-        throw new Error('No response data received');
-      }
-    } catch (error) {
-      console.error("Error updating product:", error);
-      setError(error.response?.data?.message || "Failed to update product. Please check your input and try again.");
-    } finally {
-      setIsSaving(false);
-    }
   };
-
-  if (isLoading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600"></div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="min-h-screen flex items-center justify-center">
-        <Card className="w-96 p-6">
-          <div className="text-center">
-            <p className="text-red-500 mb-4">{error}</p>
-            <Button
-              color="blue"
-              onClick={() => navigate("/admin")}
-            >
-              Return to Admin Panel
-            </Button>
-          </div>
-        </Card>
-      </div>
-    );
-  }
 
   return (
     <div className="max-w-md mx-auto mt-10 px-4">
@@ -155,42 +92,52 @@ const UpdateProductForm = () => {
               type="text"
               name="name"
               label="Product Name"
-              value={product.name || ''}
-              onChange={handleChange}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
-            />
-            
-            
+            >
+              {name}
+            </Input>
 
             <Input
+              
               type="number"
               name="price"
               label="Price"
-              value={product.price || ''}
-              onChange={handleChange}
+              value={price}
+              onChange={(e) => setPrice(e.target.value)}
               step="0.01"
               required
-            />
-
-           
+             />
 
             <Input
               type="text"
               name="imageURL"
               label="Image URL"
-              value={product.imageURL || ''}
-              onChange={handleChange}
+              value={imageURL}
+              onChange={(e) => setImageURL(e.target.value)}
               required
-            />
+            >
+              {imageURL}
+            </Input>
+
+            <Input
+              name="CategoryId"
+              label="categoryId"
+              value={categoryId}
+              onChange={(e) => setCategoryId(e.target.value)}
+              required
+            >
+              {categoryId}
+            </Input>
 
             <Button
               type="submit"
-              disabled={isSaving}
               color="blue"
               className="mt-6"
               fullWidth
             >
-              {isSaving ? "Updating..." : "Update Product"}
+              Update
             </Button>
           </form>
         </CardBody>
