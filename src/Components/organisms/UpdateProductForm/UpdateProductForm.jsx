@@ -92,9 +92,7 @@ const [categoryId, setCategoryId] = useState("");
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
-            >
-              {name}
-            </Input>
+            />
 
             <Input
               
@@ -114,9 +112,7 @@ const [categoryId, setCategoryId] = useState("");
               value={imageURL}
               onChange={(e) => setImageURL(e.target.value)}
               required
-            >
-              {imageURL}
-            </Input>
+            />
 
             <Input
               name="CategoryId"
@@ -124,9 +120,7 @@ const [categoryId, setCategoryId] = useState("");
               value={categoryId}
               onChange={(e) => setCategoryId(e.target.value)}
               required
-            >
-              {categoryId}
-            </Input>
+            />
 
             <Button
               type="submit"
