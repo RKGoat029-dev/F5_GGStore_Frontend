@@ -1,38 +1,40 @@
 import { useState } from "react";
-import Header from "../../../components/molecules/Header/Header"
-import Beyond from "../../../assets/images/beyond.jpg"
-import GearsOfWar from "../../../assets/images/gear-of-war.png"
-import Forza from "../../../assets/images/Forza-horizon.webp"
-import Halo from "../../../assets/images/halo.jpg"
-import Dragon from "../../../assets/images/Dragon-ball-Xenoverse.jpg"
-import Need from "../../../assets/images/need-for-speed.webp"
-import "./ProductGrid.css"
+import Header from "../../../components/molecules/Header/Header";
+import Beyond from "../../../assets/images/beyond.jpg";
+import GearsOfWar from "../../../assets/images/gear-of-war.png";
+import Forza from "../../../assets/images/Forza-horizon.webp";
+import Halo from "../../../assets/images/halo.jpg";
+import Dragon from "../../../assets/images/Dragon-ball-Xenoverse.jpg";
+import Need from "../../../assets/images/need-for-speed.webp";
+import "./ProductGrid.css";
+import Footer from "../../molecules/Footer/Footer";
+
 const ProductGrid = () => {
   const [selectedCategories, setSelectedCategories] = useState([]);
-  const [sortBy, setSortBy] = useState('Popular');
+  const [sortBy, setSortBy] = useState("Popular");
 
   const categories = [
-    { id: 'Beyond', label: 'Beyond' },
-    { id: 'Gear of war', label: 'Gear of war' },
-    { id: 'Forza', label: 'Forza' },
-    { id: 'Halo', label: 'Halo' },
-    { id: 'dragon ball', label: 'Dragon ball' },
-    { id: 'need for speed', label: 'Need for speed' }
+    { id: "Beyond", label: "Beyond" },
+    { id: "Gear of war", label: "Gear of war" },
+    { id: "Forza", label: "Forza" },
+    { id: "Halo", label: "Halo" },
+    { id: "dragon ball", label: "Dragon ball" },
+    { id: "need for speed", label: "Need for speed" },
   ];
 
   const products = [
-    { id: 1, name: 'beyond', price: 50, image: Beyond },
-    { id: 2, name: 'gear of war', price: 70, image: GearsOfWar },
-    { id: 3, name: 'forza', price: 99, image: Forza },
-    { id: 4, name: 'halo', price: 45, image: Halo },
-    { id: 5, name: 'dragon ball', price: 60, image: Dragon},
-    { id: 6, name: 'need for speed', price: 75, image: Need },
+    { id: 1, name: "beyond", price: 50, image: Beyond },
+    { id: 2, name: "gear of war", price: 70, image: GearsOfWar },
+    { id: 3, name: "forza", price: 99, image: Forza },
+    { id: 4, name: "halo", price: 45, image: Halo },
+    { id: 5, name: "dragon ball", price: 60, image: Dragon },
+    { id: 6, name: "need for speed", price: 75, image: Need },
   ];
 
   const handleCategoryChange = (categoryId) => {
-    setSelectedCategories(prev =>
+    setSelectedCategories((prev) =>
       prev.includes(categoryId)
-        ? prev.filter(id => id !== categoryId)
+        ? prev.filter((id) => id !== categoryId)
         : [...prev, categoryId]
     );
   };
@@ -43,85 +45,58 @@ const ProductGrid = () => {
 
   return (
     <>
-    <Header/>
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <div className="flex justify-between items-center mb-6">
-        <div>
-          <h2 className="text-xl font-semibold text-white mb-2">Filters</h2>
-          <button
-            onClick={clearFilters}
-            className="text-yellow-500 text-sm hover:underline"
-          >
+      <Header />
+      <div className="product-grid-container">
+        <div className="filters-container">
+          <h2>Filters</h2>
+          <button onClick={clearFilters} className="clear-filters">
             Clear filters
           </button>
-        </div>
-        <div className="flex items-center gap-2">
-          <span className="text-white">Sort By:</span>
-          <select
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-            className="bg-yellow-500 text-black px-4 py-2 rounded-md cursor-pointer"
-          >
-            <option value="Popular">Popular</option>
-            <option value="Price">Price</option>
-            <option value="Newest">Newest</option>
-          </select>
-        </div>
-      </div>
 
-      <div className="grid grid-cols-12 gap-8">
-        
-        <div className="col-span-2">
-          <div className="space-y-4">
-            <h3 className="text-white font-medium">Categories</h3>
-            {categories.map((category) => (
-              <div key={category.id} className="flex items-center">
-                <input
-                  type="checkbox"
-                  id={category.id}
-                  checked={selectedCategories.includes(category.id)}
-                  onChange={() => handleCategoryChange(category.id)}
-                  className="w-4 h-4 text-black-500 border-gray-300 rounded focus:ring-black-500"
-                />
-                <label
-                  htmlFor={category.id}
-                  className="ml-2 text-black cursor-pointer"
-                >
-                  {category.label}
-                </label>
-              </div>
-            ))}
+          <h3>Categories</h3>
+          {categories.map((category) => (
+            <div key={category.id} className="category-option">
+              <input
+                type="checkbox"
+                id={category.id}
+                checked={selectedCategories.includes(category.id)}
+                onChange={() => handleCategoryChange(category.id)}
+              />
+              <label htmlFor={category.id}>{category.label}</label>
+            </div>
+          ))}
+
+          <div className="sort-options">
+            <span>Sort By:</span>
+            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+              <option value="Popular">Popular</option>
+              <option value="Price">Price</option>
+              <option value="Newest">Newest</option>
+            </select>
           </div>
         </div>
 
-     
-        <div className="col-span-10">
-          <div className="grid grid-cols-3 gap-6">
+        <div className="products-container">
+          <div className="product-grid">
             {products.map((product) => (
-              <div key={product.id} className="bg-gray-700 rounded-lg overflow-hidden">
-                <div className="aspect-w-1 aspect-h-1">
-                  <img 
-                    src={product.image}
-                    alt={product.name}
-                    className="w-full h-full" 
-                  />
+              <div key={product.id} className="product-card">
+                <div className="product-image">
+                  <img src={product.image} alt={product.name} />
                 </div>
-                <div className="p-4">
-                  <h3 className="text-white font-medium">{product.name}</h3>
-                  <p className="text-yellow-500">${product.price}</p>
+                <div className="product-info">
+                  <h3>{product.name}</h3>
+                  <p className="product-price">${product.price}</p>
                 </div>
               </div>
             ))}
           </div>
 
-          <div className="mt-8 flex justify-center">
-            <button className="bg-yellow-500 text-black px-6 py-3 rounded-md hover:bg-yellow-600 transition-colors">
-              Load more products
-            </button>
+          <div className="load-more">
+            <button>Load more products</button>
           </div>
         </div>
       </div>
-    </div>
+      <Footer/>
     </>
   );
 };
