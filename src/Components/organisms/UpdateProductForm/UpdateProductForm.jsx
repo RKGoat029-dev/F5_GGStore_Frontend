@@ -7,13 +7,12 @@ import {
   Input,
 } from "@material-tailwind/react";
 import { useNavigate, useParams } from 'react-router-dom';
-import { updateProduct } from "../../../service/ProductService.jsx";
+import { productDB, updateProduct } from "../../../service/ProductService.jsx";
 
 const UpdateProductForm = () => {
   const navigate = useNavigate();
   const { productId } = useParams();
 
-  // Estado para los datos del formulario
   const [formData, setFormData] = useState({
     name: "",
     price: "",
@@ -21,21 +20,17 @@ const UpdateProductForm = () => {
     categoryId: ""
   });
 
-  // Estado para manejar la carga
   const [isLoading, setIsLoading] = useState(true);
 
-  // Cargar los datos iniciales del producto
   useEffect(() => {
     const fetchProduct = async () => {
       try {
-        // Hacer la petición al backend para obtener los datos del producto
-        const response = await fetch(`http://tu-api/products/${productId}`);
+        const response = await fetch(`${productDB}/${productId}`);
         if (!response.ok) {
           throw new Error('Error al cargar el producto');
         }
         const productData = await response.json();
         
-        // Actualizar el estado con los datos del producto
         setFormData({
           name: productData.name || "",
           price: productData.price || "",
@@ -56,7 +51,6 @@ const UpdateProductForm = () => {
     }
   }, [productId]);
 
-  // Función para manejar cambios en los inputs
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -65,7 +59,6 @@ const UpdateProductForm = () => {
     }));
   };
 
-  // Función para manejar el envío del formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
     
@@ -78,7 +71,6 @@ const UpdateProductForm = () => {
         categoryId: Number(formData.categoryId)
       };
 
-      // Llamar a la función de actualización
       await updateProduct(productId, updatedProduct);
       alert("Producto actualizado exitosamente!");
       navigate("/admin");
@@ -88,7 +80,6 @@ const UpdateProductForm = () => {
     }
   };
 
-  // Mostrar un indicador de carga mientras se obtienen los datos
   if (isLoading) {
     return (
       <div className="flex justify-center items-center h-screen">
