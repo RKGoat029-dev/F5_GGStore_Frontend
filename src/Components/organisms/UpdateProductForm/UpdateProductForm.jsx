@@ -1,13 +1,8 @@
-import { useState, useEffect } from 'react';
-import { 
-  Card, 
-  CardHeader, 
-  CardBody, 
-  Button, 
-  Input,
-} from "@material-tailwind/react";
-import { useNavigate, useParams } from 'react-router-dom';
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import { productDB, updateProduct } from "../../../service/ProductService.jsx";
+import "./UpdateProductForm.css";
+import Header from "../../../components/molecules/Header/Header.jsx";
 
 const UpdateProductForm = () => {
   const navigate = useNavigate();
@@ -17,7 +12,7 @@ const UpdateProductForm = () => {
     name: "",
     price: "",
     imageURL: "",
-    categoryId: ""
+    categoryId: "",
   });
 
   const [isLoading, setIsLoading] = useState(true);
@@ -27,17 +22,17 @@ const UpdateProductForm = () => {
       try {
         const response = await fetch(`${productDB}/${productId}`);
         if (!response.ok) {
-          throw new Error('Error al cargar el producto');
+          throw new Error("Error al cargar el producto");
         }
         const productData = await response.json();
-        
+
         setFormData({
           name: productData.name || "",
           price: productData.price || "",
           imageURL: productData.imageURL || "",
-          categoryId: productData.categoryId || ""
+          categoryId: productData.categoryId || "",
         });
-        
+
         setIsLoading(false);
       } catch (error) {
         console.error("Error al cargar los datos:", error);
@@ -53,22 +48,22 @@ const UpdateProductForm = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     try {
       const updatedProduct = {
         id: Number(productId),
         name: formData.name,
         price: Number(formData.price),
         imageURL: formData.imageURL,
-        categoryId: Number(formData.categoryId)
+        categoryId: Number(formData.categoryId),
       };
 
       await updateProduct(productId, updatedProduct);
@@ -81,75 +76,70 @@ const UpdateProductForm = () => {
   };
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-screen">
-        <div>Cargando...</div>
-      </div>
-    );
+    return <div className="form-container">Cargando...</div>;
   }
 
   return (
-    <div className="max-w-md mx-auto mt-10 px-4">
-      <Card className="shadow-lg">
-        <CardHeader
-          variant="gradient"
-          color="blue"
-          className="mb-4 grid h-28 place-items-center"
-        >
-          <h3 className="text-white text-2xl font-bold">Actualizar Producto</h3>
-        </CardHeader>
-        <CardBody className="flex flex-col gap-6 p-6">
-          <form onSubmit={handleSubmit} className="flex flex-col gap-6">
-            <Input
-              type="text"
-              name="name"
-              label="Nombre del Producto"
-              value={formData.name}
-              onChange={handleChange}
-              required
-            />
+    <>
+      <Header />
+      <div className="form-container">
+        <div className="form-card">
+          <h3 className="title-update">Actualizar Producto</h3>
+          <form onSubmit={handleSubmit} className="form">
+            <fieldset className="input-group">
+              <legend>Nombre del Producto</legend>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </fieldset>
 
-            <Input
-              type="number"
-              name="price"
-              label="Precio"
-              value={formData.price}
-              onChange={handleChange}
-              step="0.01"
-              required
-            />
+            <fieldset className="input-group">
+              <legend>Precio</legend>
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                step="0.01"
+                required
+              />
+            </fieldset>
 
-            <Input
-              type="text"
-              name="imageURL"
-              label="URL de la Imagen"
-              value={formData.imageURL}
-              onChange={handleChange}
-              required
-            />
+            <fieldset className="input-group">
+              <legend>URL de la Imagen</legend>
+              <input
+                type="text"
+                name="imageURL"
+                value={formData.imageURL}
+                onChange={handleChange}
+                required
+              />
+            </fieldset>
 
-            <Input
-              type="number"
-              name="categoryId"
-              label="ID de Categoría"
-              value={formData.categoryId}
-              onChange={handleChange}
-              required
-            />
+            <fieldset className="input-group">
+              <legend>ID de Categoría</legend>
+              <input
+                type="number"
+                name="categoryId"
+                value={formData.categoryId}
+                onChange={handleChange}
+                required
+              />
+            </fieldset>
 
-            <Button
-              type="submit"
-              color="blue"
-              className="mt-6"
-              fullWidth
-            >
+            <button type="submit" className="button-form">
               Actualizar
-            </Button>
+            </button>
           </form>
-        </CardBody>
-      </Card>
-    </div>
+        </div>
+      </div>
+    </>
   );
 };
 
 export default UpdateProductForm;
+

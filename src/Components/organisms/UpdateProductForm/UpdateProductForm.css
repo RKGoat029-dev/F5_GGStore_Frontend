@@ -4,7 +4,6 @@
     justify-content: center;
     align-items: center;
     min-height: 80vh;
-
     padding: 20px;
 }
 
@@ -18,7 +17,7 @@
 }
 
 
-.title-create {
+.title-update {
     background: black;
     color: white;
     text-align: center;
@@ -28,7 +27,6 @@
     border-radius: 8px 8px 0 0;
     margin-bottom: 20px;
 }
-
 
 .form {
     display: flex;

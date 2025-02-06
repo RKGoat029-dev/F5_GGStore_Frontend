@@ -1,4 +1,4 @@
-import Header from "../../Components/molecules/Header/Header.jsx";
+import Header from "../../components/molecules/Header/Header.jsx";
 import Footer from "../../components/molecules/Footer/Footer.jsx";
 import AdminProductManagement from "../../components/organisms/AdminProductManagement/AdminProductManagement.JSX";
 import "./admin.css";

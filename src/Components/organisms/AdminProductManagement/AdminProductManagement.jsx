@@ -43,7 +43,7 @@ const AdminProductManagement = () => {
             </div>
             <div className="flex justify-end">
               <Link to="/admin-form" className="w-full md:w-auto">
-                <Button className="button-add flex items-center justify-center gap-3 bg-blue-500 hover:bg-blue-600 transition-colors w-full md:w-auto px-8 py-4 text-lg font-medium rounded-lg shadow-lg hover:shadow-xl">
+                <Button className="button-add flex items-center justify-center gap-3 color-gray-500 hover:bg-blue-600 transition-colors w-full md:w-auto px-8 py-4 text-lg font-medium rounded-lg shadow-lg hover:shadow-xl">
                   <PlusIcon className="h-6 w-6" />
                   Add Product
                 </Button>

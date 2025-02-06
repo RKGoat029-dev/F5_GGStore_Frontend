@@ -1,57 +1,49 @@
+import { useState } from "react";
+import { createProduct } from "../../../service/ProductService";
 import "./admin-form.css";
-
-import { useState } from 'react';
-import {
-  Card, CardHeader, CardBody, Input, Button
-} from "@material-tailwind/react";
-import { createProduct } from '../../../service/ProductService';
 import Header from "../../../components/molecules/Header/Header";
 import Footer from "../../../components/molecules/Footer/Footer";
 
 const AdminForm = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    price: '',
-    categoryId: '',
-    imageURL: ''
+    name: "",
+    price: "",
+    categoryId: "",
+    imageURL: "",
   });
 
   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState('');
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prevState => ({
+    setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setError('');
+    setError("");
 
     try {
-
       if (!formData.name || !formData.price || !formData.categoryId) {
-        throw new Error('Please fill in all required fields');
+        throw new Error("Por favor, completa todos los campos requeridos.");
       }
 
       if (isNaN(formData.price) || formData.price <= 0) {
-        throw new Error('Please enter a valid price');
+        throw new Error("Ingresa un precio válido.");
       }
-
 
       const productData = {
         ...formData,
         price: parseFloat(formData.price),
-        stock: parseInt(formData.stock, 10)
       };
 
       await createProduct(productData);
-
-      window.location.href = '/admin';
+      window.location.href = "/admin";
     } catch (err) {
       setError(err.message);
     } finally {
@@ -62,44 +54,68 @@ const AdminForm = () => {
   return (
     <>
       <Header />
-      <div className="flex items-center justify-center min-h-screen p-4">
-        <Card className="w-full max-w-2xl p-8 md:p-12 shadow-lg">
-          <CardHeader color="gray" className="mb-6 grid h-28 place-items-center rounded-lg">
-            <h3 className="text-white text-3xl font-bold">Create New Product</h3>
-          </CardHeader>
+      <div className="form-container">
+        <div className="form-card">
+          <h3 className="title-create">Crear Nuevo Producto</h3>
+          {error && <div className="error-message">{error}</div>}
+          <form onSubmit={handleSubmit} className="form">
+            <fieldset className="input-group">
+              <legend>Nombre del Producto</legend>
+              <input
+                type="text"
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                required
+              />
+            </fieldset>
 
-          <CardBody className="flex flex-col gap-6">
-            {error && (
-              <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded">
-                {error}
+            <fieldset className="input-group">
+              <legend>Precio</legend>
+              <input
+                type="number"
+                name="price"
+                value={formData.price}
+                onChange={handleChange}
+                step="0.01"
+                required
+              />
+            </fieldset>
+
+            <fieldset className="input-group">
+              <legend>ID de Categoría</legend>
+              <input
+                type="number"
+                name="categoryId"
+                value={formData.categoryId}
+                onChange={handleChange}
+                required
+              />
+            </fieldset>
+
+            <fieldset className="input-group">
+              <legend>URL de la Imagen</legend>
+              <input
+                type="text"
+                name="imageURL"
+                value={formData.imageURL}
+                onChange={handleChange}
+              />
+            </fieldset>
+
+            {formData.imageURL && (
+              <div className="image-preview">
+                <img src={formData.imageURL} alt="Vista previa del producto" />
               </div>
             )}
 
-            <form onSubmit={handleSubmit} className="flex flex-col space-y-6">
-              <Input label="Product Name" name="name" value={formData.name} onChange={handleChange} required />
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Input label="Price" name="price" type="number" step="0.01" value={formData.price} onChange={handleChange} required />
-              </div>
-
-              <Input label="CategoryId" name="categoryId" value={formData.categoryId} onChange={handleChange} required />
-              <Input label="ImageURL" name="imageURL" value={formData.imageURL} onChange={handleChange} />
-
-              {formData.imageURL && (
-                <div className="w-40 h-40 mx-auto">
-                  <img src={formData.imageURL} alt="Product preview" className="w-full h-full object-cover rounded-lg" />
-                </div>
-              )}
-
-              <Button type="submit" color="gray" className="mt-6 py-3 text-lg font-semibold" disabled={loading}>
-                {loading ? 'Creating...' : 'Create Product'}
-              </Button>
-            </form>
-          </CardBody>
-        </Card>
+            <button type="submit" className="button-form" disabled={loading}>
+              {loading ? "Creando..." : "Crear Producto"}
+            </button>
+          </form>
+        </div>
       </div>
-     <Footer/>
-
+      <Footer />
     </>
   );
 };

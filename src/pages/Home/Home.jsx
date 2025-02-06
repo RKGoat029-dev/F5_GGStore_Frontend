@@ -8,8 +8,9 @@ import { Outlet } from "react-router-dom";
 const Home = () => {
   return (
     <>
-        <Header />
-        
+        <div className="">
+          <Header />
+        </div>
         <Banner />
         <Outlet/>
         <ProfileCard />

@@ -4,7 +4,7 @@ import "./Banner.css"
 function Banner() {
   return (
     <>
-      <div className="w-full">
+      <div className="banner w-full">
 
         <div className="relative w-full h-[700px]  rounded-md">
           <img
