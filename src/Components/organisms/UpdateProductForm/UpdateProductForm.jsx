@@ -5,73 +5,97 @@ import {
   CardBody, 
   Button, 
   Input,
- 
 } from "@material-tailwind/react";
 import { useNavigate, useParams } from 'react-router-dom';
 import { updateProduct } from "../../../service/ProductService.jsx";
 
 const UpdateProductForm = () => {
-  
+  const navigate = useNavigate();
+  const { productId } = useParams();
 
-const [products, setProducts] = useState([]);
+  // Estado para los datos del formulario
+  const [formData, setFormData] = useState({
+    name: "",
+    price: "",
+    imageURL: "",
+    categoryId: ""
+  });
 
-const updateProductById = async (id, updatedProduct) => {
-  const updating = await updateProduct(id, updatedProduct);
-  setProducts((prevProducts) => prevProducts.map(
-    (product) => (product.id === id ? updating : product)));
-};
+  // Estado para manejar la carga
+  const [isLoading, setIsLoading] = useState(true);
 
-const navigate = useNavigate();
-
-const { productId } = useParams();
-
-const [name, setName] = useState("");
-const [price, setPrice] = useState("");
-const [imageURL, setImageURL] = useState("");
-const [categoryId, setCategoryId] = useState("");
-
+  // Cargar los datos iniciales del producto
   useEffect(() => {
-    if (productId) {
-      
-      const foundProduct = products.find((product) => 
-      product.id === Number(productId));
-      
-      if (foundProduct) {
-        setName(foundProduct.name);
-        setPrice(foundProduct.price);
-        setImageURL(foundProduct.imageURL);
-        setCategoryId(foundProduct.categoryId);
+    const fetchProduct = async () => {
+      try {
+        // Hacer la petición al backend para obtener los datos del producto
+        const response = await fetch(`http://tu-api/products/${productId}`);
+        if (!response.ok) {
+          throw new Error('Error al cargar el producto');
+        }
+        const productData = await response.json();
+        
+        // Actualizar el estado con los datos del producto
+        setFormData({
+          name: productData.name || "",
+          price: productData.price || "",
+          imageURL: productData.imageURL || "",
+          categoryId: productData.categoryId || ""
+        });
+        
+        setIsLoading(false);
+      } catch (error) {
+        console.error("Error al cargar los datos:", error);
+        alert("Error al cargar los datos del producto");
+        setIsLoading(false);
       }
-    }
-  }, [productId, products]);
-
-  const handleSubmit = async (e) => {
-    
-    e.preventDefault();
-    
-    if (!productId) {
-      alert("No product ID available");
-      return;
-    }
-
-    if (!name || !price || !imageURL || !categoryId) {
-      alert("All fields are required!");
-      return;
-    }
-
-    const updatedProduct = {
-      id: Number(productId),
-      name,
-      price,
-      imageURL,
-      categoryId
     };
 
-    updateProductById(updatedProduct);
-    alert("Product successfully updated!");
-    navigate("/admin");
+    if (productId) {
+      fetchProduct();
+    }
+  }, [productId]);
 
+  // Función para manejar cambios en los inputs
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prevState => ({
+      ...prevState,
+      [name]: value
+    }));
   };
+
+  // Función para manejar el envío del formulario
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    try {
+      const updatedProduct = {
+        id: Number(productId),
+        name: formData.name,
+        price: Number(formData.price),
+        imageURL: formData.imageURL,
+        categoryId: Number(formData.categoryId)
+      };
+
+      // Llamar a la función de actualización
+      await updateProduct(productId, updatedProduct);
+      alert("Producto actualizado exitosamente!");
+      navigate("/admin");
+    } catch (error) {
+      console.error("Error al actualizar:", error);
+      alert("Error al actualizar el producto");
+    }
+  };
+
+  // Mostrar un indicador de carga mientras se obtienen los datos
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-screen">
+        <div>Cargando...</div>
+      </div>
+    );
+  }
 
   return (
     <div className="max-w-md mx-auto mt-10 px-4">
@@ -81,44 +105,44 @@ const [categoryId, setCategoryId] = useState("");
           color="blue"
           className="mb-4 grid h-28 place-items-center"
         >
-          <h3 className="text-white text-2xl font-bold">Update Product</h3>
+          <h3 className="text-white text-2xl font-bold">Actualizar Producto</h3>
         </CardHeader>
         <CardBody className="flex flex-col gap-6 p-6">
           <form onSubmit={handleSubmit} className="flex flex-col gap-6">
             <Input
               type="text"
               name="name"
-              label="Product Name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
+              label="Nombre del Producto"
+              value={formData.name}
+              onChange={handleChange}
               required
             />
 
             <Input
-              
               type="number"
               name="price"
-              label="Price"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
+              label="Precio"
+              value={formData.price}
+              onChange={handleChange}
               step="0.01"
               required
-             />
+            />
 
             <Input
               type="text"
               name="imageURL"
-              label="Image URL"
-              value={imageURL}
-              onChange={(e) => setImageURL(e.target.value)}
+              label="URL de la Imagen"
+              value={formData.imageURL}
+              onChange={handleChange}
               required
             />
 
             <Input
-              name="CategoryId"
-              label="categoryId"
-              value={categoryId}
-              onChange={(e) => setCategoryId(e.target.value)}
+              type="number"
+              name="categoryId"
+              label="ID de Categoría"
+              value={formData.categoryId}
+              onChange={handleChange}
               required
             />
 
@@ -128,7 +152,7 @@ const [categoryId, setCategoryId] = useState("");
               className="mt-6"
               fullWidth
             >
-              Update
+              Actualizar
             </Button>
           </form>
         </CardBody>
