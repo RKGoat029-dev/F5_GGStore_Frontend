@@ -33,7 +33,7 @@ const AdminProductManagement = () => {
   return (
     <div className="card-container flex justify-center items-center min-h-screen">
       <Card className=" md:w-3/4 lg:w-2/3 bg-white shadow-xl rounded-lg p-6">
-        <CardHeader floated={false} shadow={false} className="rounded-t-lg bg-white px-6 py-4">
+        <CardHeader floated={false} shadow={false} className="img-container rounded-t-lg bg-white px-6 py-4">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-4 md:space-y-0">
             <div className="space-y-2">
               <h4 className="text-3xl font-bold text-gray-800 text-center">Product Management</h4>

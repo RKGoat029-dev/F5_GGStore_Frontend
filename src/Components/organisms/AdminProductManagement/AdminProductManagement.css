@@ -7,3 +7,15 @@
   
     
 }
+
+.img-container{
+  padding: 25px;
+}
+
+td, tr{
+  padding: 25px;
+}
+
+tr, th {
+  padding-left: 30px;
+}

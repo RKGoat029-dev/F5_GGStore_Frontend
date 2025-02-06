@@ -1,0 +1,27 @@
+.img-cart {
+    padding: 25px;
+}
+
+.description-card{
+    padding: 25px;
+    gap: 25px;
+}
+
+.text-card{
+    margin-top: 15px;
+}
+
+.button-cart {
+    margin-left: 25px;
+    padding: 10px;
+    
+}
+
+
+.text-card-1{
+    margin-bottom: 20px;
+}
+
+.button-1 {
+   padding: 10px; 
+}

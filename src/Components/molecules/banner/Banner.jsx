@@ -1,4 +1,4 @@
-import banner from "../../../assets/icon/banner-2.png"
+import banner from "../../../assets/icon/banner-3.png"
 import "./Banner.css"
 
 function Banner() {
