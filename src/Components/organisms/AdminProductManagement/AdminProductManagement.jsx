@@ -93,7 +93,7 @@ const AdminProductManagement = () => {
                       <IconButton
                         variant="text"
                         className="flex items-center justify-center bg-blue-50 hover:bg-blue-100 text-blue-500 w-12 h-12 rounded-lg transition-all duration-200 transform hover:scale-105"
-                        onClick={() => window.location.href = `/edit/${product.id}`}
+                        onClick={() => window.location.href = `/${product.id}`}
                       >
                         <PencilIcon className="h-6 w-6" />
                       </IconButton>
